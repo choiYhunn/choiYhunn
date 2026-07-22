@@ -6,9 +6,15 @@
 
 저는 알고리즘 하나만 구현하는 것보다 센서 입력부터 판단, 제어 명령, 로그와 복구 동작까지 연결해 **전체 시스템이 실제로 동작하고 검증 가능하게 만드는 과정**에 관심이 있습니다.
 
-```text
-Sensor / Perception → Decision → Control → Actuator
-          └──────── Logging · Fail-Safe · Validation ────────┘
+```mermaid
+flowchart LR
+    S["Sensor / Perception"] --> D["Decision"]
+    D --> C["Control"]
+    C --> A["Actuator"]
+    S --> V["Logging · Fail-Safe · Validation"]
+    D --> V
+    C --> V
+    A --> V
 ```
 
 ## 핵심 역량

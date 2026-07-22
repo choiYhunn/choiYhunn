@@ -6,9 +6,15 @@ I study Electronic and Electrical Engineering at Sungkyunkwan University, focusi
 
 My main interest is connecting the complete path from sensor input to decision, control command, logging, and recovery behavior so that the system is both operational and verifiable.
 
-```text
-Sensor / Perception → Decision → Control → Actuator
-          └──────── Logging · Fail-Safe · Validation ────────┘
+```mermaid
+flowchart LR
+    S["Sensor / Perception"] --> D["Decision"]
+    D --> C["Control"]
+    C --> A["Actuator"]
+    S --> V["Logging · Fail-Safe · Validation"]
+    D --> V
+    C --> V
+    A --> V
 ```
 
 ## Core Strengths
