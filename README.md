@@ -1,82 +1,61 @@
-# 최용훈 | Automotive Embedded & System Software
+# 최용훈 (Yong Hoon Choi)
 
 [한국어](README.md) | [English](README.en.md)
 
-성균관대학교 전자전기공학부에서 **차량 임베디드 SW, 자율주행 시스템 통합, 차량 네트워크와 검증 자동화**를 공부하고 있습니다.
+**Memory Systems · Embedded / Low-Level Software · Experimental Validation**
 
-저는 알고리즘 하나만 구현하는 것보다 센서 입력부터 판단, 제어 명령, 로그와 복구 동작까지 연결해 **전체 시스템이 실제로 동작하고 검증 가능하게 만드는 과정**에 관심이 있습니다.
+성균관대학교 전자전기공학부 학부생입니다. 2026년 8월부터 삼성전자 DS부문 메모리사업부 DRAM Solution팀에서 장기현장실습으로 서버 DRAM 모듈·시스템 검증 업무를 하고 있습니다.
 
-```mermaid
-flowchart LR
-    S["Sensor / Perception"] --> D["Decision"]
-    D --> C["Control"]
-    C --> A["Actuator"]
-    S --> V["Logging · Fail-Safe · Validation"]
-    D --> V
-    C --> V
-    A --> V
-```
+MCU 펌웨어, CAN-FD 계측 실험, FPGA SoC 차량 통합을 거쳐 지금은 Linux 서버에서 메모리 오류가 하드웨어 ECC → 메모리 컨트롤러 → 커널 → 디코더를 거쳐 보고되는 경로를 다루고 있습니다. 관심 있는 질문은 **"관측된 기록이 실제 하드웨어 동작의 증거로서 어디까지 유효한가"**, 그리고 **"그 차이를 줄이려면 어떤 통제 실험이 필요한가"**입니다.
 
-## 핵심 역량
+## 현재: 삼성전자 DS · DRAM Solution 장기현장실습 (2026.08 – 현재)
 
-| 분야 | 경험 |
-|---|---|
-| 자율주행 제어 | Pure Pursuit, Stanley 계열 제어, 주차 FSM, 속도·조향 튜닝 |
-| 임베디드 SW | C/C++, MCU 상태 머신, timer·PWM·ADC·UART·CAN 연동 |
-| 차량 네트워크 | CAN/CAN-FD, 신호 패킹, trace parsing, timing 분석 |
-| 시스템 통합 | ROS, PYNQ/DPU, MMIO, 카메라·센서·제어 흐름 연결 |
-| 검증 | Fail-Safe, event logging, 데이터 QC, host-side test, 재현 가능한 분석 |
+Intel/AMD 서버 플랫폼, DDR5 RDIMM, Linux 기반 메모리 테스트와 오류 관측을 다룹니다. 아래는 공개 가능한 수준으로 일반화한 설명이며, 회사 코드·로그·데이터는 어떤 공개 저장소에도 포함하지 않습니다.
 
-## 대표 프로젝트
+- **구현** — C로 Linux machine-check(MCE) 알림을 user-space reader로 전달해 기존 컨트롤러 오류 디코더와 연결하는 이벤트 기반 오류 경로를 만들었습니다. 현재 검증 중인 프로토타입이며 정식 배포된 도구가 아닙니다.
+- **검증** — 디코딩 전에 오류 기록의 유효성·중복·최신성·출처를 확인하고, 이벤트 방식과 polling 방식의 관측 수 차이가 손실이 아니라 서로 다른 계수 단위에서 온다는 점을 추적했습니다.
+- **학습** — BIOS/MRC training, DDR5 DIMM 구성, MCA/RAS 오류 보고, 시스템 주소와 DRAM 논리 좌표 사이의 변환을 소스와 문서로 공부하고 있습니다.
 
-### 1. 성균관대학교 자율주행 해커톤 — 최종 2위
+## 연구 경험: CAN-FD 주기 프레임 타이밍 검증 (학부연구 URP, 2026)
 
-4인 팀으로 ROS 기반 자율주행 시뮬레이션 시스템을 개발했습니다. 주차 FSM, Pure Pursuit 경로 추종, 곡률 기반 속도 제어와 RViz 디버그 도구를 통합했습니다.
+Renesas RA6M5 3-node CAN-FD 환경과 PCAN-USB FD trace로 신호 패킹 전략에 따른 주기 제어 프레임의 도착 간격 지터를 비교했습니다. 저는 Python trace 파싱·품질 점검·통계 분석과 비교 조건 감사를 맡았습니다.
 
-- 역할: 주행·주차 제어 통합, Fail-Safe, 속도·조향 튜닝
-- 해결: 주차 동작을 상태 머신으로 구조화하고 고속 구간과 급조향 구간의 속도 전략 분리
-- 결과: 주차 미션 3개 중 2개 완료, 최종 2위
-- [소스와 기여 근거 보기](https://github.com/choiYhunn/skku-autonomous-driving-hackathon-2025)
+처음 보인 전략 간 지터 차이가 배경 트래픽 생성 간격 차이와 함께 바뀐 비교였다는 점을 찾아, 동일 조건 재측정과 간격 sweep, 리셋·측정 순서를 바꾼 반복 측정으로 결론을 **"평균 버스 점유율만으로 타이밍 조건이 같다고 볼 수 없다"**로 수정했습니다. 2026 한국자동차공학회 추계학술대회 Full Paper로 **제출(Submitted)**했으며 저는 공동저자입니다. 원본 trace와 firmware는 공동연구 자료라 공개 저장소가 없습니다.
 
-### 2. 자율주행 AI Chip 설계대회 — 진행 중
+## 공개 프로젝트
 
-PYNQ의 DPU 추론 결과를 PWM 차량 제어와 연결하고 주행·주차 모드, ADC 조향 피드백과 차선 미검출 Fail-Safe를 통합하고 있습니다.
+**[RA6M3 Microprocessor Lab](https://github.com/choiYhunn/ra6m3-microprocessor-lab)** — Bare-metal MCU 제어 로직
+엘리베이터 제어기(5-state FSM, IRQ·timer·PWM·UART·CAN)와 교육용 변속 제어기의 애플리케이션 로직을 portable C11로 분리했습니다. `gcc -std=c11 -Werror` host test로 로직을 재현할 수 있습니다. 보드 타이밍·배선은 host test 범위 밖입니다.
 
-- 역할: 조향·주행 제어 통합, `max_jump`·미검출 복귀 튜닝, 실차 디버깅
-- 공개 범위: 팀 source·모델·FPGA 산출물은 비공개, 검증된 시스템 설명만 공개
-- [한·영 포트폴리오 보기](https://github.com/junmyounggyu/2026-autonomous-driving-hackathon-portfolio/tree/main/%EA%B5%90%EB%82%B4_%EC%9E%90%EC%9C%A8%EC%A3%BC%ED%96%89_AI_Chip_%EC%84%A4%EA%B3%84%EB%8C%80%ED%9A%8C_%EC%A7%84%ED%96%89%EC%A4%91%28%EC%B5%9C%EC%9A%A9%ED%9B%88%29)
+**[2026 AI-Chip 자율주행 차량](https://github.com/choiYhunn/2026-autonomous-driving-hackathon-portfolio/tree/main/%EA%B5%90%EB%82%B4_%EC%9E%90%EC%9C%A8%EC%A3%BC%ED%96%89_AI_Chip_%EC%84%A4%EA%B3%84%EB%8C%80%ED%9A%8C_%EC%A7%84%ED%96%89%EC%A4%91%28%EC%B5%9C%EC%9A%A9%ED%9B%88%29)** — PYNQ/Zynq HW-SW 통합 · AI칩 부문 동상(팀)
+카메라 → DPU 추론 → 조향 제어 → MMIO PWM으로 이어지는 실행 구조 통합, ADC 피드백 기반 보정과 반복 실차 시험을 맡았습니다. 주행 3위로 주차 단계에 진출했지만 주차는 초음파 미검출로 실패했고 원인은 미확정입니다. 팀 코드·모델·FPGA 산출물은 비공개이며 README만 공개합니다.
 
-### 3. CAN-FD 신호 패킹·수신 타이밍 연구
+**[2025 SKKU 자율주행 해커톤](https://github.com/choiYhunn/skku-autonomous-driving-hackathon-2025)** — ROS 주행·주차 제어 · 2위(팀)
+ROS Noetic 시뮬레이터에서 전면·평행 주차 FSM, Pure Pursuit, 곡률 기반 속도 제어를 통합했습니다. 대회 제공 환경과 본인 커밋을 구분해 두었습니다.
 
-RA6M5 TX/RX와 PCAN trace를 이용해 A/B/C 패킹 전략의 RX inter-arrival jitter와 reconstructed occupancy를 비교한 공동 연구입니다.
+**[Shared Brain Starter](https://github.com/choiYhunn/shared-brain-starter)** — 소프트웨어 엔지니어링 사이드 프로젝트
+여러 AI 도구가 같은 프로젝트 맥락을 이어 쓰도록 Git 기반 지식 저장소를 만드는 starter입니다. importer·validator를 단위 테스트와 E2E 스모크 테스트로 CI에서 검증합니다. 개인 기록은 포함하지 않습니다.
 
-- 역할: 분석 과정 구성, 데이터 QC, 조건 오류 발견, 재측정과 결과 해석
-- 검증 원칙: 측정값과 추정값을 분리하고 통과하지 못한 claim gate도 보존
-- 공개 범위: 연구 방법과 한계만 공개, 원본 trace·firmware·수치 결과는 승인 전 비공개
-- [한·영 포트폴리오 보기](https://github.com/junmyounggyu/2026-autonomous-driving-hackathon-portfolio/tree/main/CAN-FD_%EC%8B%A0%ED%98%B8%ED%8C%A8%ED%82%B9_%EC%8B%A4%EC%8B%9C%EA%B0%84%EC%84%B1_%EC%97%B0%EA%B5%AC%28%EC%B5%9C%EC%9A%A9%ED%9B%88%29)
+그 외: 2026 AMET 자율주행 해커톤(Raspberry Pi 5 · ROS 2, 우수상·현대모비스상, 팀) — 직접 라벨링·학습한 YOLO26n 후보를 차량에서 측정한 추론 지연(중앙값 약 374 ms) 때문에 레이스 빌드에서 제외했습니다. 팀 저장소가 비공개라 링크하지 않습니다.
 
-### 4. RA6M3 마이크로프로세서 실습
-
-EK-RA6M3 수업 프로젝트의 애플리케이션 로직을 portable C11로 분리했습니다. 엘리베이터 제어기와 교육용 TCU 상태 머신을 PC에서 컴파일하고 assertion test로 검증할 수 있습니다.
-
-- 역할: 상태 기반 제어 로직, peripheral 연동, 공개 가능한 core 추출과 host test
-- 공개 범위: FSP 생성 코드·수업 skeleton·개인정보를 제외한 직접 구현 로직
-- [소스와 테스트 보기](https://github.com/choiYhunn/ra6m3-microprocessor-lab)
-
-## 기술 스택
+## 기술
 
 ```text
-Languages     C · C++ · Python
-Embedded      Renesas RA6M3/RA6M5 · PYNQ · PWM · ADC · UART · CAN/CAN-FD
-Autonomy      ROS · Pure Pursuit · Stanley · FSM · RViz
-Validation    Git · Linux · CSV/TRC analysis · event logging · host-side testing
+Languages   C · Python · RISC-V assembly · C++ (수업 수준)
+Systems     Linux · Git · DDR5 RDIMM 서버, BIOS/MRC, MCA/RAS (실습 중 학습)
+Embedded    Renesas RA6M3/RA6M5 (FSP) · Zynq/PYNQ · ROS/ROS 2
+Interfaces  CAN/CAN-FD (PCAN-USB FD) · UART · ADC · PWM · Timer/IRQ · MMIO
+Methods     통제 비교 · 교란변수 점검 · 반복 측정 · 관측/추정 구분
 ```
 
-## 작업 원칙
+## 수상
 
-- 팀 결과와 개인 기여를 구분합니다.
-- 확인되지 않은 성능과 수상, 역할을 만들지 않습니다.
-- 실패 조건과 측정 한계를 결과와 함께 기록합니다.
-- 개인정보, 팀원 코드, 모델·dataset과 장비 식별정보는 공개하지 않습니다.
+- 2026 AMET 자율주행 해커톤 우수상(현대모비스상), 본선 3위 — 팀
+- 제4회 성균관대학교 AI 자율주행 경진대회 AI칩 부문 동상 — 팀
+- 2025 성균관대학교 자율주행 해커톤 2위 — 팀
 
-> 공개 저장소에는 검토 가능한 source와 설명만 포함합니다. 비공개 팀 프로젝트는 공개 승인을 받은 범위만 포트폴리오로 설명합니다.
+## 공개 원칙
+
+- 팀 결과와 개인 기여를 구분하고, 확인되지 않은 성능·수상·역할은 쓰지 않습니다.
+- 시뮬레이션 결과와 실제 하드웨어 검증을 구분하고, 실패와 측정 한계를 함께 기록합니다.
+- 회사·공동연구·팀원 자료는 공개 권한이 확인된 범위만 설명합니다.
