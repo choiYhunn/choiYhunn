@@ -39,7 +39,7 @@ Ripes(forwarding 5-stage) 환경에서 GCD 코드의 RAW·control hazard를 분�
 **[Shared Brain Starter](https://github.com/choiYhunn/shared-brain-starter)** — 소프트웨어 엔지니어링 사이드 프로젝트
 여러 AI 도구가 같은 프로젝트 맥락을 이어 쓰도록 Git 기반 지식 저장소를 만드는 starter입니다. importer·validator를 단위 테스트와 E2E 스모크 테스트로 CI에서 검증합니다. 개인 기록은 포함하지 않습니다.
 
-그 외: 2026 AMET 자율주행 해커톤(Raspberry Pi 5 · ROS 2, 우수상·현대모비스상, 팀) — 직접 라벨링·학습한 YOLO26n 후보를 차량 CPU에서 측정한 추론 지연(p50 약 318 ms, p95 약 400 ms) 때문에 레이스 주력 파이프라인에서 빼고 먼 거리 기하 보조로만 썼습니다. 팀 저장소가 비공개라 링크하지 않습니다.
+그 외: 2026 AMET 자율주행 해커톤(Raspberry Pi 5 · ROS 2, 우수상·현대모비스상, 팀) — 직접 라벨링·학습한 YOLO26n 후보를 차량 CPU에서 측정한 추론 지연(p50 약 318 ms, p95 약 400 ms) 때문에 레이스 주력 파이프라인에서 빼고 먼 거리 기하 보조로만 썼습니다([orange_lane_yolo](https://github.com/choiYhunn/amet-2026-yonghun/tree/main/orange_lane_yolo)). 2026 국민대학교 자율주행 경진대회 예선에도 참가했습니다(ROS2 시뮬레이터, 팀) — [mission-supervisor 재구성 코드](https://github.com/choiYhunn/kookmin-autonomous-driving-competition-2026).
 
 ## 기술
 
