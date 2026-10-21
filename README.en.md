@@ -20,7 +20,7 @@ Intel and AMD server platforms, DDR5 RDIMMs, Linux-based memory testing and erro
 
 Using a three-node Renesas RA6M5 CAN-FD setup and PCAN-USB FD traces, we compared how signal-packing strategies affect the inter-arrival jitter of a periodic control frame. I handled Python trace parsing, quality checks, statistics, and the audit of comparison conditions.
 
-I found that an early jitter difference between strategies came from a comparison in which the background-traffic generation gap had changed as well. After re-measuring under identical conditions, sweeping the gap, and repeating runs with board resets and permuted order, we revised the conclusion to **mean bus occupancy alone does not establish equivalent timing conditions**. The full paper was **submitted** to the KSAE 2026 Annual Autumn Conference, and I am a co-author. Raw traces and firmware are joint research material, so there is no public repository.
+I found that an early jitter difference between strategies came from a comparison in which the background-traffic generation gap had changed as well. After re-measuring under identical conditions, sweeping the gap, and repeating runs with board resets and permuted order, we revised the conclusion to **mean bus occupancy alone does not establish equivalent timing conditions**. The full paper was **submitted** to the KSAE 2026 Annual Autumn Conference, and I am a co-author. The preliminary campaign's Python parser/QC/statistics code, my firmware sources, and the final 3-node re-experiment (`final_campaign/`) are in [canfd-signal-packing-timing-evaluation](https://github.com/choiYhunn/canfd-signal-packing-timing-evaluation) (co-researcher release consent confirmed; raw traces not published).
 
 ## Public projects
 

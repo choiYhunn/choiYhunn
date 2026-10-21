@@ -20,7 +20,7 @@ Intel/AMD 서버 플랫폼, DDR5 RDIMM, Linux 기반 메모리 테스트와 오�
 
 Renesas RA6M5 3-node CAN-FD 환경과 PCAN-USB FD trace로 신호 패킹 전략에 따른 주기 제어 프레임의 도착 간격 지터를 비교했습니다. 저는 Python trace 파싱·품질 점검·통계 분석과 비교 조건 감사를 맡았습니다.
 
-처음 보인 전략 간 지터 차이가 배경 트래픽 생성 간격 차이와 함께 바뀐 비교였다는 점을 찾아, 동일 조건 재측정과 간격 sweep, 리셋·측정 순서를 바꾼 반복 측정으로 결론을 **"평균 버스 점유율만으로 타이밍 조건이 같다고 볼 수 없다"**로 수정했습니다. 2026 한국자동차공학회 추계학술대회 Full Paper로 **제출(Submitted)**했으며 저는 공동저자입니다. 원본 trace와 firmware는 공동연구 자료라 공개 저장소가 없습니다.
+처음 보인 전략 간 지터 차이가 배경 트래픽 생성 간격 차이와 함께 바뀐 비교였다는 점을 찾아, 동일 조건 재측정과 간격 sweep, 리셋·측정 순서를 바꾼 반복 측정으로 결론을 **"평균 버스 점유율만으로 타이밍 조건이 같다고 볼 수 없다"**로 수정했습니다. 2026 한국자동차공학회 추계학술대회 Full Paper로 **제출(Submitted)**했으며 저는 공동저자입니다. 초기 캠페인의 Python 파서·QC·통계 코드와 사용자 작성 firmware, 최종 3-node 재실험(`final_campaign/`)은 [canfd-signal-packing-timing-evaluation](https://github.com/choiYhunn/canfd-signal-packing-timing-evaluation)에 있습니다(공동 연구진 공개 동의 확인, 원본 trace는 비공개).
 
 ## 공개 프로젝트
 
