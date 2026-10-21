@@ -1,6 +1,6 @@
 # Portfolio Pages
 
-`docs/`는 https://choiyhunn.github.io/choiYhunn/ 에 그대로 배포되는 정적 사이트입니다. build 단계가 없고, 페이지 이동은 hash route(`#project/canfd`, `#doc/...`)라서 새로고침과 직접 URL 접근에 서버 설정이 필요 없습니다.
+`docs/`는 정적 포트폴리오 사이트 원본입니다. 2026-10-21부터 GitHub Pages 배포를 사용하지 않으며(Pages 비활성, 배포 워크플로 제거), 필요하면 저장소 설정에서 Pages를 켜고 이 커밋 이전의 `.github/workflows/pages.yml`을 되살리면 됩니다. build 단계가 없고, 페이지 이동은 hash route(`#project/canfd`, `#doc/...`)라서 새로고침과 직접 URL 접근에 서버 설정이 필요 없습니다.
 
 ## 출처
 
@@ -18,4 +18,4 @@ python tools/verify_public_site.py check
 python tools/verify_public_site.py live https://choiyhunn.github.io/choiYhunn/
 ```
 
-`check`는 허용 목록, 금지 패턴(토큰·키·전화번호·비공개 경로·강의 원자료·팀원 실명·사내 시스템), index.html의 asset 참조를 검사합니다. `.github/workflows/pages.yml`은 main push마다 check → deploy → live 검증을 실행하고, live 단계는 배포된 바이트가 저장소와 같은지와 비공개 경로가 404인지 확인합니다.
+`check`는 허용 목록, 금지 패턴(토큰·키·전화번호·비공개 경로·강의 원자료·팀원 실명·사내 시스템), index.html의 asset 참조를 검사합니다. 배포 워크플로는 제거했으므로 공개 경계 검사는 위 `check` 명령으로 로컬에서 실행합니다.
