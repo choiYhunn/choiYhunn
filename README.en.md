@@ -25,18 +25,21 @@ I found that an early jitter difference between strategies came from a compariso
 ## Public projects
 
 **[RA6M3 Microprocessor Lab](https://github.com/choiYhunn/ra6m3-microprocessor-lab/blob/main/README.en.md)** — bare-metal MCU control logic
-Application logic of an elevator controller (five-state FSM with IRQ, timer, PWM, UART, CAN) and an educational transmission controller, extracted as portable C11. The logic is reproducible with `gcc -std=c11 -Werror` host tests; board timing and wiring are outside their scope.
+Application logic of an elevator controller (five-state FSM with IRQ, timer, PWM, UART, CAN) and an educational transmission controller, extracted as portable C11. The logic is reproducible with `gcc -std=c11 -Werror` host tests; board timing and wiring are outside their scope. The original EK-RA6M3 submission application source the reconstruction was derived from is also kept under [`board_original/`](https://github.com/choiYhunn/ra6m3-microprocessor-lab/tree/main/board_original) (FSP-generated trees and audio excluded).
 
 **[2026 AI-Chip autonomous vehicle](https://github.com/choiYhunn/2026-autonomous-driving-hackathon-portfolio/blob/main/%EA%B5%90%EB%82%B4_%EC%9E%90%EC%9C%A8%EC%A3%BC%ED%96%89_AI_Chip_%EC%84%A4%EA%B3%84%EB%8C%80%ED%9A%8C_%EC%A7%84%ED%96%89%EC%A4%91%28%EC%B5%9C%EC%9A%A9%ED%9B%88%29/README.en.md)** — PYNQ/Zynq hardware–software integration · Bronze Award, AI-Chip Division (team)
-I integrated the run-time chain camera → DPU inference → steering control → PWM over MMIO, calibrated against ADC feedback, and ran repeated vehicle tests. The car placed 3rd in the driving run and reached the parking stage, where the mission failed on intermittent ultrasonic no-detection whose cause is still unresolved. The runtime parts I owned (lane-loss handling, drive/park mode resource lifecycle, non-blocking drive recording) are published as PC-runnable code with tests; teammates’ algorithms, the educational baseline, models, and FPGA artifacts are excluded.
+I integrated the run-time chain camera → DPU inference → steering control → PWM over MMIO, calibrated against ADC feedback, and ran repeated vehicle tests. The car placed 3rd in the driving run and reached the parking stage, where the mission failed on intermittent ultrasonic no-detection whose cause is still unresolved. The runtime parts I owned (lane-loss handling, drive/park mode resource lifecycle, non-blocking drive recording) are published both as a PC-runnable reconstruction (`src/portfolio_2026/`) and as my own files from the actual competition package (`src/competition_runtime/`); teammates’ algorithms, the educational baseline, models, and FPGA artifacts are excluded.
 
 **[2025 SKKU Autonomous Driving Hackathon](https://github.com/choiYhunn/skku-autonomous-driving-hackathon-2025/blob/main/README.en.md)** — ROS driving and parking control · 2nd place (team)
 Front and parallel parking FSMs, Pure Pursuit, and curvature-based speed control integrated in a ROS Noetic simulator. Competition-provided code and my own commits are separated.
 
+**[RISC-V Pipeline Hazard Study](https://github.com/choiYhunn/riscv-pipeline-hazard-study)** — Computer Architecture HW1 · pipeline hazard analysis
+On Ripes (forwarding 5-stage pipeline), analyzed RAW and control hazards in a GCD routine and hid stall slots via instruction scheduling, reducing the cycle count from **121 to 118**; completed a selection-sort skeleton with load-use-hazard-aware ordering. The numbers are simulator results; the provided skeleton and the PII-bearing report are excluded.
+
 **[Shared Brain Starter](https://github.com/choiYhunn/shared-brain-starter)** — software-engineering side project
 A starter kit for a Git-backed knowledge repository that lets several AI tools continue the same project context. Its importer and validator are covered by unit tests and an end-to-end smoke test in CI. It contains no personal records.
 
-Also: 2026 AMET Autonomous Driving Hackathon (Raspberry Pi 5 · ROS 2, Excellence Award from Hyundai Mobis, team). I trained a YOLO26n candidate on images I labeled and removed it from the race build after measuring about 374 ms median inference on the vehicle. The team repository is private, so it is not linked.
+Also: 2026 AMET Autonomous Driving Hackathon (Raspberry Pi 5 · ROS 2, Excellence Award from Hyundai Mobis, team). I trained a YOLO26n candidate on images I labeled, then kept it out of the primary race pipeline — used only as a far-geometry assist — after measuring on-vehicle CPU inference of about 318 ms p50 / 400 ms p95. The team repository is private, so it is not linked.
 
 ## Skills
 
