@@ -20,7 +20,7 @@ Intel and AMD server platforms, DDR5 RDIMMs, Linux-based memory testing and erro
 
 Using a three-node Renesas RA6M5 CAN-FD setup and PCAN-USB FD traces, we compared how signal-packing strategies affect the inter-arrival jitter of a periodic control frame. I handled Python trace parsing, quality checks, statistics, and the audit of comparison conditions.
 
-I found that an early jitter difference between strategies came from a comparison in which the background-traffic generation gap had changed as well. After re-measuring under identical conditions, sweeping the gap, and repeating runs with board resets and permuted order, we revised the conclusion to **mean bus occupancy alone does not establish equivalent timing conditions**. The full paper was **submitted** to the KSAE 2026 Annual Autumn Conference, and I am a co-author. Raw traces and firmware are joint research material, so there is no public repository.
+I found that an early jitter difference between strategies came from a comparison in which the background-traffic generation gap had changed as well. After re-measuring under identical conditions, sweeping the gap, and repeating runs with board resets and permuted order, we revised the conclusion to **mean bus occupancy alone does not establish equivalent timing conditions**. The full paper was **submitted** to the KSAE 2026 Annual Autumn Conference, and I am a co-author. The preliminary campaign’s Python parser, QC and statistics code, custom firmware sources, and figures are in [canfd-signal-packing-timing-evaluation](https://github.com/choiYhunn/canfd-signal-packing-timing-evaluation); raw traces are not published.
 
 ## Public projects
 
@@ -36,7 +36,7 @@ Front and parallel parking FSMs, Pure Pursuit, and curvature-based speed control
 **[Shared Brain Starter](https://github.com/choiYhunn/shared-brain-starter)** — software-engineering side project
 A starter kit for a Git-backed knowledge repository that lets several AI tools continue the same project context. Its importer and validator are covered by unit tests and an end-to-end smoke test in CI. It contains no personal records.
 
-Also: 2026 AMET Autonomous Driving Hackathon (Raspberry Pi 5 · ROS 2, Excellence Award from Hyundai Mobis, team). I trained a YOLO26n candidate on images I labeled and removed it from the race build after measuring about 374 ms median inference on the vehicle. The team repository is private, so it is not linked.
+Also: 2026 AMET Autonomous Driving Hackathon (Raspberry Pi 5 · ROS 2, Excellence Award from Hyundai Mobis, team). I trained a YOLO26n candidate on images I labeled and removed it from the race build after measuring about 374 ms median inference on the vehicle. The team repository is private, so it is not linked. I also took part in the preliminary round of the 2026 Kookmin University Autonomous Driving Competition (ROS2 simulator, team) — [mission-supervisor reconstruction](https://github.com/choiYhunn/kookmin-autonomous-driving-competition-2026).
 
 ## Skills
 
