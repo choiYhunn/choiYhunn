@@ -39,7 +39,7 @@ On Ripes (forwarding 5-stage pipeline), analyzed RAW and control hazards in a GC
 **[Shared Brain Starter](https://github.com/choiYhunn/shared-brain-starter)** — software-engineering side project
 A starter kit for a Git-backed knowledge repository that lets several AI tools continue the same project context. Its importer and validator are covered by unit tests and an end-to-end smoke test in CI. It contains no personal records.
 
-Also: 2026 AMET Autonomous Driving Hackathon (Raspberry Pi 5 · ROS 2, Excellence Award from Hyundai Mobis, team). I trained a YOLO26n candidate on images I labeled, then kept it out of the primary race pipeline — used only as a far-geometry assist — after measuring on-vehicle CPU inference of about 318 ms p50 / 400 ms p95. The team repository is private, so it is not linked.
+Also: 2026 AMET Autonomous Driving Hackathon (Raspberry Pi 5 · ROS 2, Excellence Award from Hyundai Mobis, team). I trained a YOLO26n candidate on images I labeled, then kept it out of the primary race pipeline — used only as a far-geometry assist — after measuring on-vehicle CPU inference of about 318 ms p50 / 400 ms p95 ([orange_lane_yolo](https://github.com/choiYhunn/amet-2026-yonghun/tree/main/orange_lane_yolo)). I also took part in the preliminary round of the 2026 Kookmin University Autonomous Driving Competition (ROS2 simulator, team) — [mission-supervisor reconstruction](https://github.com/choiYhunn/kookmin-autonomous-driving-competition-2026).
 
 ## Skills
 
