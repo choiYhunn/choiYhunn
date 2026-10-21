@@ -28,7 +28,7 @@ Renesas RA6M5 3-node CAN-FD 환경과 PCAN-USB FD trace로 신호 패킹 전략�
 엘리베이터 제어기(5-state FSM, IRQ·timer·PWM·UART·CAN)와 교육용 변속 제어기의 애플리케이션 로직을 portable C11로 분리했습니다. `gcc -std=c11 -Werror` host test로 로직을 재현할 수 있습니다. 보드 타이밍·배선은 host test 범위 밖입니다.
 
 **[2026 AI-Chip 자율주행 차량](https://github.com/choiYhunn/2026-autonomous-driving-hackathon-portfolio/tree/main/%EA%B5%90%EB%82%B4_%EC%9E%90%EC%9C%A8%EC%A3%BC%ED%96%89_AI_Chip_%EC%84%A4%EA%B3%84%EB%8C%80%ED%9A%8C_%EC%A7%84%ED%96%89%EC%A4%91%28%EC%B5%9C%EC%9A%A9%ED%9B%88%29)** — PYNQ/Zynq HW-SW 통합 · AI칩 부문 동상(팀)
-카메라 → DPU 추론 → 조향 제어 → MMIO PWM으로 이어지는 실행 구조 통합, ADC 피드백 기반 보정과 반복 실차 시험을 맡았습니다. 주행 3위로 주차 단계에 진출했지만 주차는 초음파 미검출로 실패했고 원인은 미확정입니다. 팀 코드·모델·FPGA 산출물은 비공개이며 README만 공개합니다.
+카메라 → DPU 추론 → 조향 제어 → MMIO PWM으로 이어지는 실행 구조 통합, ADC 피드백 기반 보정과 반복 실차 시험을 맡았습니다. 주행 3위로 주차 단계에 진출했지만 주차는 초음파 미검출로 실패했고 원인은 미확정입니다. 제가 맡은 runtime 부분(차선 미검출 처리, 주행/주차 모드 자원 수명주기, 비차단 주행 녹화)은 보드 없이 PC에서 돌아가는 코드와 테스트로 공개했고, 팀원 알고리즘·교육용 baseline·모델·FPGA 산출물은 제외했습니다.
 
 **[2025 SKKU 자율주행 해커톤](https://github.com/choiYhunn/skku-autonomous-driving-hackathon-2025)** — ROS 주행·주차 제어 · 2위(팀)
 ROS Noetic 시뮬레이터에서 전면·평행 주차 FSM, Pure Pursuit, 곡률 기반 속도 제어를 통합했습니다. 대회 제공 환경과 본인 커밋을 구분해 두었습니다.
