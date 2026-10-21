@@ -25,18 +25,21 @@ Renesas RA6M5 3-node CAN-FD 환경과 PCAN-USB FD trace로 신호 패킹 전략�
 ## 공개 프로젝트
 
 **[RA6M3 Microprocessor Lab](https://github.com/choiYhunn/ra6m3-microprocessor-lab)** — Bare-metal MCU 제어 로직
-엘리베이터 제어기(5-state FSM, IRQ·timer·PWM·UART·CAN)와 교육용 변속 제어기의 애플리케이션 로직을 portable C11로 분리했습니다. `gcc -std=c11 -Werror` host test로 로직을 재현할 수 있습니다. 보드 타이밍·배선은 host test 범위 밖입니다.
+엘리베이터 제어기(5-state FSM, IRQ·timer·PWM·UART·CAN)와 교육용 변속 제어기의 애플리케이션 로직을 portable C11로 분리했습니다. `gcc -std=c11 -Werror` host test로 로직을 재현할 수 있습니다. 보드 타이밍·배선은 host test 범위 밖입니다. 재구성본이 유래한 EK-RA6M3 제출 원본 애플리케이션 소스도 [`board_original/`](https://github.com/choiYhunn/ra6m3-microprocessor-lab/tree/main/board_original)에 함께 두었습니다(FSP 생성물·음원 제외).
 
 **[2026 AI-Chip 자율주행 차량](https://github.com/choiYhunn/2026-autonomous-driving-hackathon-portfolio/tree/main/%EA%B5%90%EB%82%B4_%EC%9E%90%EC%9C%A8%EC%A3%BC%ED%96%89_AI_Chip_%EC%84%A4%EA%B3%84%EB%8C%80%ED%9A%8C_%EC%A7%84%ED%96%89%EC%A4%91%28%EC%B5%9C%EC%9A%A9%ED%9B%88%29)** — PYNQ/Zynq HW-SW 통합 · AI칩 부문 동상(팀)
-카메라 → DPU 추론 → 조향 제어 → MMIO PWM으로 이어지는 실행 구조 통합, ADC 피드백 기반 보정과 반복 실차 시험을 맡았습니다. 주행 3위로 주차 단계에 진출했지만 주차는 초음파 미검출로 실패했고 원인은 미확정입니다. 제가 맡은 runtime 부분(차선 미검출 처리, 주행/주차 모드 자원 수명주기, 비차단 주행 녹화)은 보드 없이 PC에서 돌아가는 코드와 테스트로 공개했고, 팀원 알고리즘·교육용 baseline·모델·FPGA 산출물은 제외했습니다.
+카메라 → DPU 추론 → 조향 제어 → MMIO PWM으로 이어지는 실행 구조 통합, ADC 피드백 기반 보정과 반복 실차 시험을 맡았습니다. 주행 3위로 주차 단계에 진출했지만 주차는 초음파 미검출로 실패했고 원인은 미확정입니다. 제가 맡은 runtime 부분(차선 미검출 처리, 주행/주차 모드 자원 수명주기, 비차단 주행 녹화)은 보드 없이 PC에서 돌아가는 재구성본(`src/portfolio_2026/`)과, 대회 실행본 중 본인 작성 소스(`src/competition_runtime/`)로 공개했고, 팀원 알고리즘·교육용 baseline·모델·FPGA 산출물은 제외했습니다.
 
 **[2025 SKKU 자율주행 해커톤](https://github.com/choiYhunn/skku-autonomous-driving-hackathon-2025)** — ROS 주행·주차 제어 · 2위(팀)
 ROS Noetic 시뮬레이터에서 전면·평행 주차 FSM, Pure Pursuit, 곡률 기반 속도 제어를 통합했습니다. 대회 제공 환경과 본인 커밋을 구분해 두었습니다.
 
+**[RISC-V Pipeline Hazard Study](https://github.com/choiYhunn/riscv-pipeline-hazard-study)** — 컴퓨터구조 HW1 · 파이프라인 해저드 분석
+Ripes(forwarding 5-stage) 환경에서 GCD 코드의 RAW·control hazard를 분석하고 instruction scheduling으로 stall을 은닉해 cycle을 **121 → 118**로 줄였습니다. selection sort는 load-use hazard를 고려해 skeleton 빈칸을 채웠습니다. 수치는 시뮬레이터 결과이며, 제공 skeleton·개인정보 보고서는 제외했습니다.
+
 **[Shared Brain Starter](https://github.com/choiYhunn/shared-brain-starter)** — 소프트웨어 엔지니어링 사이드 프로젝트
 여러 AI 도구가 같은 프로젝트 맥락을 이어 쓰도록 Git 기반 지식 저장소를 만드는 starter입니다. importer·validator를 단위 테스트와 E2E 스모크 테스트로 CI에서 검증합니다. 개인 기록은 포함하지 않습니다.
 
-그 외: 2026 AMET 자율주행 해커톤(Raspberry Pi 5 · ROS 2, 우수상·현대모비스상, 팀) — 직접 라벨링·학습한 YOLO26n 후보를 차량에서 측정한 추론 지연(중앙값 약 374 ms) 때문에 레이스 빌드에서 제외했습니다. 팀 저장소가 비공개라 링크하지 않습니다.
+그 외: 2026 AMET 자율주행 해커톤(Raspberry Pi 5 · ROS 2, 우수상·현대모비스상, 팀) — 직접 라벨링·학습한 YOLO26n 후보를 차량 CPU에서 측정한 추론 지연(p50 약 318 ms, p95 약 400 ms) 때문에 레이스 주력 파이프라인에서 빼고 먼 거리 기하 보조로만 썼습니다. 팀 저장소가 비공개라 링크하지 않습니다.
 
 ## 기술
 
