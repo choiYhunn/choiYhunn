@@ -1,1 +1,0 @@
-Locally vendored: marked 17.0.5 (MIT); DOMPurify 3.3.1 (Apache-2.0/MPL-2.0); highlight.js 11.11.1 (BSD-3-Clause); KaTeX 0.16.22 (MIT). Original license files are included. No CDN requests are required.
