@@ -15,7 +15,7 @@ University courses and external hands-on training, organized by **what I learned
 ```mermaid
 flowchart LR
     ZE["Zonal workshop"] --> HP["HPC parking FSM"] --> HV["Vehicle debugging<br/>new host model"]
-    VN["Automotive Networks"] --> CF["CAN-FD three-node measurement"] --> CFV["PCAN measurements<br/>paper submitted"]
+    VN["Automotive Networks"] --> CF["CAN-FD three-node measurement"] --> CFV["PCAN measurements<br/>presentation accepted"]
     ML["Microprocessor Lab"] --> WL["Register-level labs<br/>TCU / elevator FSMs"] --> WLV["Graded on board<br/>host tests"]
     ML --> PQ["PYNQ MMIO / PWM integration"] --> PQV["3rd in driving run"]
     CA["Computer Architecture"] --> RV["GCD instruction reordering"] --> RVV["Ripes 121 → 115"]
