@@ -1,62 +1,43 @@
-# Yong Hoon Choi (최용훈)
+# Yong Hoon Choi | 최용훈
 
-[한국어](README.md) | [English](README.en.md)
+Electronic and Electrical Engineering, Sungkyunkwan University · [한국어](README.md)
 
-**Memory reliability · System validation · Embedded / low-level software**
+I work on memory-system validation and embedded software. My earlier projects involved MCU control, CAN-FD measurements and autonomous vehicles. Since August 2026, I have been undertaking an industry practicum with Samsung Electronics DS, DRAM Solution Team.
 
-I am an undergraduate in Electronic and Electrical Engineering at Sungkyunkwan University (SKKU). Since August 2026 I have been on a long-term industry practicum in server DDR5 RDIMM system validation with the DRAM Solution Team, Memory Business, Samsung Electronics DS. The question I care about: **how faithfully does an error register or OS record describe a real DRAM event, and what independent measurement is needed to confirm a test's conclusion?**
+I am interested in **memory-error observability and reliability testing**: distinguishing software-requested operations, hardware activity, and what an error record can actually establish.
 
-| At a glance | |
+## Samsung Electronics DS | DRAM Solution practicum
+
+My work involves server DDR5 RDIMM validation across physical platform configurations.
+
+- **Platform testing:** Worked with server board, CPU and DIMM population configurations, checking slot/channel mappings and boot/training conditions when interpreting test results.
+- **C/Linux implementation:** Built a prototype that connects Linux machine-check notifications to an existing controller error decoder. Investigated event-triggered versus polling observations and debugged reader and record-interpretation issues. The prototype remains under validation; it is not a released tool.
+- **Register and controller analysis:** Studied CPU/controller reference material and existing source to understand record-validity fields, error details, CPU-family-dependent decoding and logical DIMM localization. Also studied DDR5 BIOS/MRC CA and DQ/DQS training and timing/voltage margins.
+
+Company source, logs, raw register data and platform identifiers are not published. This section describes only general, externally shareable aspects of the work.
+
+## Research and projects
+
+| Project | Work and result |
 |---|---|
-| Now | Server DDR5 RDIMM platform validation and the Linux memory-error observation path (practicum) |
-| Hardware I have worked on | Physical server boards and DDR5 RDIMM populations · Renesas RA6M3/RA6M5 · Zynq/PYNQ (Ultra96-V2) · Raspberry Pi 5 · PCAN-USB FD · oscilloscope |
-| Software | C (Linux user space, MCU firmware) · Python (trace analysis, tests) · RISC-V assembly · ROS/ROS 2 |
-| Strongest result | CAN-FD: with the packing strategy fixed, changing only the background gap from 238 to 240 µs moved jitter from 26.4 to 56.8 µs (n = 3) — showing the earlier strategy comparison was confounded; KSAE full paper submitted |
-| In progress | Linux machine-check event-capture prototype (not released) |
+| **[CAN-FD signal packing and receive timing](https://github.com/choiYhunn/canfd-signal-packing-timing-evaluation)** · undergraduate research | Analyzed 5 ms control-frame arrival jitter on a three-node Renesas RA6M5/PCAN testbed. I worked on Python trace parsing, QC and statistics, and identified background-traffic cadence as a confound in an early packing-strategy comparison. With the strategy fixed, changing the gap from 238 to 240 μs changed jitter from 26.37 to 56.84 μs (n=3). [Final experiments and verification](https://github.com/choiYhunn/canfd-signal-packing-timing-evaluation/tree/main/final_campaign) |
+| **[RA6M3 Microprocessor Lab](https://github.com/choiYhunn/ra6m3-microprocessor-lab)** | Implemented elevator FSM and transmission-control logic using C/FSP. Extracted the personally written control logic into portable C11 modules with host assertion tests; board timing is outside those tests. |
+| **[RISC-V Pipeline Hazard](https://github.com/choiYhunn/riscv-pipeline-hazard-study)** | Reordered GCD instructions on a five-stage Ripes processor *without forwarding*, reducing **121 to 115 cycles** with 61 instructions unchanged. Original submission screenshots are included. |
+| **[AI-Chip autonomous vehicle](https://github.com/choiYhunn/skku-ai-chip-autonomous-driving-2026)** | Integrated the PYNQ/Zynq camera–DPU–MMIO motor-control path and performed calibration and repeated vehicle tests. Bronze Award, AI-Chip Division (team). |
+| **[AMET orange-line detector experiment](https://github.com/choiYhunn/amet-2026-orange-lane-detector)** | Labeled track images, trained YOLO26n, deployed an ONNX candidate and measured inference latency on the vehicle CPU. p50 was **318.5–376.4 ms** across runs; this candidate was not used in the final race. The team received a Hyundai Mobis Excellence Award with a separate driving stack. |
+| **[2025 SKKU autonomous-driving hackathon](https://github.com/choiYhunn/skku-autonomous-driving-hackathon-2025)** | Integrated parking FSM, Pure Pursuit and curvature-based speed control in ROS Noetic. 2nd place (team). |
 
-## Now: Samsung Electronics DS, DRAM Solution Team practicum (Aug 2026 – )
-
-Server DDR5 RDIMM bring-up, population-dependent testing, and RAS error analysis. No company code, logs, register dumps, test conditions, or platform names appear in any public repository; the description below is generalized to public concepts.
-
-| Category | What |
-|---|---|
-| Built and verified | A C prototype that connects a Linux machine-check event reader to an existing platform-specific controller error decoder. Debugged reader blocking and inconsistent field interpretation; compared event-triggered and polling capture with matched capture mode and count units, and traced their count difference to different counting units rather than lost errors. **A prototype under validation, not a released tool.** |
-| Analyzed / debugged existing code | Traced Linux MCA records to controller error-register snapshots and the existing location decoder, and the memory-test pattern → controller → error-report flow. Checked record validity, duplication, staleness, and provenance before decoding, and investigated ambiguous or stale snapshots instead of trusting the decoded result. |
-| Hands-on experiments | On physical server test setups with different board/CPU/DIMM population configurations, examined slot/channel maps and boot/training state, and compared startup conditions and population effects before attributing a difference to the DIMM. Recorded test configuration, event provenance, parser regression fixtures, and repeatability checks. |
-| Learned from documents and source | Error-register bitfields (validity, parity, detail fields) and CPU-generation layout differences from reference manuals and datasheets; system address → logical channel/DIMM/rank/bank/row/column translation; PCI configuration, MMIO, and MSR access paths; BIOS/MRC host–RCD–DRAM CA and DQ/DQS training, PI/Vref sweeps, eye/margin centering. I did not own MRC firmware. |
-| Not yet verified | Whether a decoded DQ/position equals the physical DRAM cell location (not treated as ground truth) · how software-requested accesses, measured controller activity, and actual row-level DRAM command exposure correspond · criteria for detecting overwritten or stale error records |
-
-## Selected projects
-
-| Project | My part | Verified result | Kind of evidence |
-|---|---|---|---|
-| [CAN-FD signal-packing timing](https://github.com/choiYhunn/canfd-signal-packing-timing-evaluation) · undergraduate research 2026 | Python trace parsing, QC, jitter statistics, comparison-condition audit (firmware and wiring were team work) | The initial 37.7 µs strategy difference coincided with a background-gap difference; across a 230–250 µs gap sweep jitter changed non-monotonically while reconstructed occupancy moved by less than 1 pp | RA6M5 three-node hardware, PCAN traces; headline numbers recomputable from public CSVs |
-| [RA6M3 Microprocessor Lab](https://github.com/choiYhunn/ra6m3-microprocessor-lab) · A+ | Five-state elevator FSM, P/N/D/R transmission control with hysteresis; original board source plus a portable C11 extraction | TCU and elevator host assertion tests pass (`-std=c11 -Werror`) | Host tests; board timing out of scope |
-| [RISC-V Pipeline Hazard Study](https://github.com/choiYhunn/riscv-pipeline-hazard-study) · A+ | GCD hazard analysis and instruction reordering on a five-stage pipeline without forwarding | **121 → 115 cycles**, 61 instructions in both (CPI 1.98 → 1.89) | Ripes simulation; submission-time screenshots |
-| [AI-Chip autonomous vehicle](https://github.com/choiYhunn/skku-ai-chip-autonomous-driving-2026) · Bronze (team) | Integrated camera → DPU → steering → MMIO PWM; ADC-feedback calibration; repeated vehicle tests | 3rd in the driving run; parking failed on ultrasonic no-detection (cause unresolved); 5th overall | Vehicle runs; public code is my runtime files plus a PC reconstruction with 3 tests |
-| [AMET YOLO26n candidate](https://github.com/choiYhunn/amet-2026-orange-lane-detector) · team Excellence Award | Labeling → Colab training → ONNX deployment → on-vehicle latency measurement | Vehicle-CPU inference p50 318–376 ms; no completed lap in three runs → **not used in the race** | Vehicle telemetry plus a recomputation script |
-| [SKKU Autonomous Driving Hackathon 2025](https://github.com/choiYhunn/skku-autonomous-driving-hackathon-2025) · 2nd (team) | Integrated parking FSM, Pure Pursuit, curvature-based speed control | Two of three parking missions completed | ROS Noetic simulator |
-
-Also: [2026 Kookmin University Autonomous Driving Competition](https://github.com/choiYhunn/kookmin-autonomous-driving-competition-2026), preliminary round (team) — mission-supervisor reconstruction with 4 unit tests · [Shared Brain Starter](https://github.com/choiYhunn/shared-brain-starter) — Git-backed knowledge-repository starter with 5 unit tests and CI.
+Other work: [2026 Kookmin University Autonomous Driving Competition, preliminary round](https://github.com/choiYhunn/kookmin-autonomous-driving-competition-2026) and [Shared Brain Starter](https://github.com/choiYhunn/shared-brain-starter).
 
 ## Paper and awards
 
-- "Analysis of Inter-Arrival Jitter in Periodic Control Frames under Different Temporal Structures of Background Traffic in CAN-FD," KSAE 2026 Autumn Conference, 8-page full paper, **submitted**; second author
-- 2026 AMET Autonomous Driving Hackathon — Excellence Award (Hyundai Mobis), 4th in preliminaries, 3rd in finals (team)
-- 4th SKKU AI Autonomous Driving Competition, AI-Chip division — Bronze Award (team)
+- CAN-FD receive-jitter study: **eight-page full paper submitted** to the 2026 KSAE Autumn Conference (second author; not presented as accepted)
+- 2026 AMET Autonomous Driving Hackathon — Hyundai Mobis Excellence Award, 3rd in finals (team)
+- 4th SKKU AI Autonomous Driving Competition — Bronze Award, AI-Chip Division (team)
 - 2025 SKKU Autonomous Driving Hackathon — 2nd place (team)
 
-## Skills
+## Tools
 
-```text
-Languages   C · Python · RISC-V assembly · C++ (coursework level)
-Memory      Server DDR5 RDIMM platforms · MCA/RAS error registers · address translation · BIOS/MRC training concepts (practicum)
-Embedded    Renesas RA6M3/RA6M5 (FSP) · Zynq/PYNQ · ROS/ROS 2 · CAN/CAN-FD · UART · ADC · PWM · Timer/IRQ · MMIO
-Methods     Controlled comparison · confound checks · repeated measurement · separating measurements from model outputs
-```
+C · Python · RISC-V assembly · Linux · Git · Renesas RA6M3/RA6M5 · Zynq/PYNQ · ROS/ROS 2 · CAN/CAN-FD · MMIO · UART/ADC/PWM
 
-## How I publish
-
-- Team results and my own contribution are kept apart; unverified performance, awards, or roles are not claimed.
-- Measurements, simulations, and model calculations are labeled as such, with failures and measurement limits.
-- Company, joint-research, and teammate material is covered only to the extent publication is confirmed.
+Hardware measurements, simulations and model estimates are kept separate. Team and provided material is not represented as individual implementation.
