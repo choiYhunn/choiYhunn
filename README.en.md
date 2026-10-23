@@ -27,6 +27,7 @@ Company source, logs, raw register data and platform identifiers are not publish
 
 | Project | Work and result |
 |---|---|
+| **[Zonal HPC parking controller](https://github.com/choiYhunn/zonal-autoparking-controller)** | Specified and integrated an ultrasonic-triggered, timed-maneuver parking FSM on a four-zone CAN/Ethernet testbed. Debugged sensor defaults, state transitions, steering polarity and Zone 3 direction with AI-assisted Python edits. [Hardware evidence](https://github.com/choiYhunn/zonal-autoparking-controller/blob/main/results/hardware-evidence.md) and [new portable model / 26 host tests](https://github.com/choiYhunn/zonal-autoparking-controller/tree/main/tests) are separated; final parking success is unverified. |
 | **[CAN-FD signal packing and receive timing](https://github.com/choiYhunn/canfd-signal-packing-timing-evaluation)** · undergraduate research | Analyzed 5 ms control-frame arrival jitter on a three-node Renesas RA6M5/PCAN testbed. I worked on Python trace parsing, QC and statistics, and identified background-traffic cadence as a confound in an early packing-strategy comparison. With the strategy fixed, changing the gap from 238 to 240 μs changed jitter from 26.37 to 56.84 μs (n=3). [Final experiments and verification](https://github.com/choiYhunn/canfd-signal-packing-timing-evaluation/tree/main/final_campaign) |
 | **[RA6M3 Microprocessor Lab](https://github.com/choiYhunn/ra6m3-microprocessor-lab)** | Implemented elevator FSM and transmission-control logic using C/FSP. Extracted the personally written control logic into portable C11 modules with host assertion tests; board timing is outside those tests. The weekly assignments (interrupts, timers, PWM, ADC, UART) are published as [diffs against the course skeleton](https://github.com/choiYhunn/ra6m3-microprocessor-lab/tree/main/weekly_labs). |
 | **[RISC-V Pipeline Hazard](https://github.com/choiYhunn/riscv-pipeline-hazard-study)** | Reordered GCD instructions on a five-stage Ripes processor *without forwarding*, reducing **121 to 115 cycles** with 61 instructions unchanged. Original submission screenshots are included. |
@@ -42,6 +43,7 @@ How course and workshop learning turned into implementation and verification. Tr
 
 ```mermaid
 flowchart LR
+    ZE["Zonal workshop"] --> HP["HPC parking FSM"] --> HV["Vehicle debugging<br/>new host model"]
     VN["Automotive Networks"] --> CF["CAN-FD three-node measurement"] --> CFV["PCAN measurements<br/>paper submitted"]
     ML["Microprocessor Lab"] --> WL["Register-level labs<br/>TCU / elevator FSMs"] --> WLV["Graded on board<br/>host tests"]
     ML --> PQ["PYNQ MMIO / PWM integration"] --> PQV["3rd in driving run"]
@@ -50,10 +52,10 @@ flowchart LR
 
 | Training | Status | My surviving artifacts |
 |---|---|---|
-| Zonal E/E Architecture workshop (HPC, four zones, CAN↔Ethernet, FreeRTOS) | Attended, Jul 2026 | Run procedure and a one-line debug change; architecture [documented from the original source](TRAINING.en.md#zonal-ee-architecture-workshop) |
+| Zonal E/E Architecture workshop (HPC, four zones, CAN↔Ethernet, FreeRTOS) | Attended, Jul 2026 | [Parking sequence, HPC integration and field debugging](https://github.com/choiYhunn/zonal-autoparking-controller); historical lineage recovered; independently reconstructed public code |
 | Automotive Ethernet · AUTOSAR (EB tresos) · Automotive Embedded Systems · ROS 2 short courses | Attended | None (only distributed material remains) |
-| H-Mobility Class: autonomous-driving communication and networks / Car Inside Out | Basic track completed | Written assignments |
-| Automotive Networks · Smart Car Engineering | Coursework | Ringing/SIC analysis report; paper on AI perception and real-time control (literature analysis) |
+| H-Mobility Class: autonomous-driving communication and networks / Car Inside Out | Both basic tracks completed | Study notes retained privately; the assignment text files contain prompts, not verified submitted answers |
+| Automotive Networks · Smart Car Engineering | Coursework | Public revised literature-analysis notes: [Ringing/SIC](docs/technical-notes/can-fd-ringing-sic.en.md) · [perception/memory/control](docs/technical-notes/perception-memory-control.en.md), each with Korean PDF |
 
 Per-course detail and what is not published: [Training and coursework](TRAINING.en.md).
 

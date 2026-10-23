@@ -27,6 +27,7 @@
 
 | 프로젝트 | 구현·분석 내용 |
 |---|---|
+| **[Zonal HPC 자율주차 제어](https://github.com/choiYhunn/zonal-autoparking-controller)** | 4-Zone CAN/Ethernet 시험대에서 초음파 감지·시간 기반 주차 FSM을 설계·통합했습니다. AI 보조 Python 수정과 실차 관찰로 센서 기본값, 상태 전환, 조향 극성과 Zone 3 구동 방향을 디버깅했습니다. [실물 실행 근거](https://github.com/choiYhunn/zonal-autoparking-controller/blob/main/results/hardware-evidence.md)와 [새 portable 모델·26개 host test](https://github.com/choiYhunn/zonal-autoparking-controller/tree/main/tests)를 구분했습니다. 최종 주차 성공은 미확인입니다. |
 | **[CAN-FD 신호 패킹과 수신 타이밍](https://github.com/choiYhunn/canfd-signal-packing-timing-evaluation)** · 학부연구 | Renesas RA6M5 3-node 구성과 PCAN 로그로 5 ms 주기 프레임의 도착 간격 지터를 분석했습니다. Python 파싱·품질 검사·통계 분석을 담당했고, 초기 패킹 전략 간 차이에 배경 트래픽 생성 간격이라는 교란변수가 있음을 확인했습니다. 같은 전략에서 gap 238→240 μs 변경 시 지터 26.37→56.84 μs(n=3). [최종 재실험과 수치 검증](https://github.com/choiYhunn/canfd-signal-packing-timing-evaluation/tree/main/final_campaign) |
 | **[RA6M3 마이크로프로세서 실습](https://github.com/choiYhunn/ra6m3-microprocessor-lab)** | C/FSP 기반 엘리베이터 FSM·변속 제어 로직을 구현했습니다. 개인 작성 로직을 portable C11로 분리하고 PC assertion test를 추가했습니다. 주차별 과제(인터럽트·타이머·PWM·ADC·UART)는 [수업 skeleton 대비 본인 변경분](https://github.com/choiYhunn/ra6m3-microprocessor-lab/tree/main/weekly_labs)으로 공개했습니다. 보드 주변장치 타이밍과 PC 테스트 범위는 구분했습니다. |
 | **[RISC-V Pipeline Hazard](https://github.com/choiYhunn/riscv-pipeline-hazard-study)** | Forwarding이 없는 5-stage Ripes 환경에서 GCD 명령어 재배치로 **121→115 cycles**(61 instructions 유지). 원래 제출 당시 실행 화면을 저장소에 첨부했습니다. |
@@ -42,6 +43,7 @@
 
 ```mermaid
 flowchart LR
+    ZE["Zonal 실습"] --> HP["HPC 주차 FSM"] --> HV["실차 디버깅<br/>새 host 모델"]
     VN["차량용네트워크"] --> CF["CAN-FD 3-node 측정"] --> CFV["PCAN 실측<br/>논문 제출"]
     ML["마이크로프로세서실험"] --> WL["레지스터 과제<br/>TCU·엘리베이터 FSM"] --> WLV["보드 채점<br/>host test"]
     ML --> PQ["PYNQ MMIO·PWM 통합"] --> PQV["실차 주행 3위"]
@@ -50,10 +52,10 @@ flowchart LR
 
 | 교육 | 상태 | 남은 본인 산출물 |
 |---|---|---|
-| Zonal E/E Architecture 워크숍 (HPC·4 Zone·CAN↔Ethernet·FreeRTOS) | 참여, 2026.07 | 실행 절차와 디버그 변경 1줄. 구조는 [원본 소스로 정리](TRAINING.md#zonal-ee-architecture-워크숍) |
+| Zonal E/E Architecture 워크숍 (HPC·4 Zone·CAN↔Ethernet·FreeRTOS) | 참여, 2026.07 | [주차 순서 설계·HPC 통합·실차 디버깅](https://github.com/choiYhunn/zonal-autoparking-controller). 과거 코드 계보 복원, 공개용 독립 코드 작성 |
 | 차량용 이더넷 · AUTOSAR(EB tresos) · 차량용 임베디드 시스템 · ROS 2 단기강좌 | 참여 | 없음 (배포 자료만 남음) |
-| H-Mobility Class 자율주행 통신·네트워크 / 카인사이드아웃 | 기본교육 수료 | 과제 서술 |
-| 차량용네트워크 · 스마트카공학개론 | 수강 | Ringing·SIC 분석 보고서, AI 인지·실시간 제어 논문 과제 (문헌 분석) |
+| H-Mobility Class 자율주행 통신·네트워크 / 카인사이드아웃 | 두 기본교육 수료 | 개인 학습노트 보존. 과제 txt는 문항만 확인되어 제출 답안으로 표시하지 않음 |
+| 차량용네트워크 · 스마트카공학개론 | 수강 | 개인 분석 보고서의 공개 개정본: [Ringing·SIC](docs/technical-notes/can-fd-ringing-sic.md) · [인지·메모리·제어 경로](docs/technical-notes/perception-memory-control.md), PDF 포함 |
 
 과목별 상세와 공개하지 않는 자료는 [교육·실습 기록](TRAINING.md)에 있습니다.
 
