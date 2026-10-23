@@ -14,10 +14,10 @@ University courses and external hands-on training, organized by **what I learned
 
 ```mermaid
 flowchart LR
-    VN["Automotive Networks<br/>CAN / CAN-FD bit timing"] --> CF["CAN-FD three-node measurement and analysis"] --> CFV["PCAN trace measurements<br/>KSAE full paper submitted"]
-    ML["Microprocessor Lab<br/>IRQ · timers · PWM · ADC · UART"] --> WL["Weekly register-level labs<br/>TCU and elevator FSMs"] --> WLV["Graded on the board<br/>FSM host tests"]
-    ML --> PQ["PYNQ runtime integration<br/>MMIO PWM · ADC feedback"] --> PQV["3rd in the vehicle driving run"]
-    CA["Computer Architecture<br/>pipeline hazards"] --> RV["GCD instruction reordering"] --> RVV["Ripes 121 → 115 cycles"]
+    VN["Automotive Networks"] --> CF["CAN-FD three-node measurement"] --> CFV["PCAN measurements<br/>paper submitted"]
+    ML["Microprocessor Lab"] --> WL["Register-level labs<br/>TCU / elevator FSMs"] --> WLV["Graded on board<br/>host tests"]
+    ML --> PQ["PYNQ MMIO / PWM integration"] --> PQV["3rd in driving run"]
+    CA["Computer Architecture"] --> RV["GCD instruction reordering"] --> RVV["Ripes 121 → 115"]
 ```
 
 External training (Zonal, Automotive Ethernet, AUTOSAR, etc.) is not in this diagram because no evidence ties it to my own implementation.

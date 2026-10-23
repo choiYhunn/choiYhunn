@@ -42,10 +42,10 @@ How course and workshop learning turned into implementation and verification. Tr
 
 ```mermaid
 flowchart LR
-    VN["Automotive Networks<br/>CAN / CAN-FD bit timing"] --> CF["CAN-FD three-node measurement"] --> CFV["PCAN trace measurements<br/>paper submitted"]
-    ML["Microprocessor Lab<br/>IRQ · timers · PWM · ADC · UART"] --> WL["Weekly register-level labs<br/>TCU and elevator FSMs"] --> WLV["Graded on the board<br/>FSM host tests"]
-    ML --> PQ["PYNQ runtime integration<br/>MMIO PWM · ADC feedback"] --> PQV["3rd in the driving run"]
-    CA["Computer Architecture<br/>pipeline hazards"] --> RV["GCD instruction reordering"] --> RVV["Ripes 121 → 115 cycles"]
+    VN["Automotive Networks"] --> CF["CAN-FD three-node measurement"] --> CFV["PCAN measurements<br/>paper submitted"]
+    ML["Microprocessor Lab"] --> WL["Register-level labs<br/>TCU / elevator FSMs"] --> WLV["Graded on board<br/>host tests"]
+    ML --> PQ["PYNQ MMIO / PWM integration"] --> PQV["3rd in driving run"]
+    CA["Computer Architecture"] --> RV["GCD instruction reordering"] --> RVV["Ripes 121 → 115"]
 ```
 
 | Training | Status | My surviving artifacts |

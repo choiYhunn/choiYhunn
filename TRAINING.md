@@ -14,10 +14,10 @@
 
 ```mermaid
 flowchart LR
-    VN["차량용네트워크<br/>CAN·CAN-FD 비트 타이밍"] --> CF["CAN-FD 3-node 측정·분석"] --> CFV["PCAN trace 실측<br/>KSAE Full Paper 제출"]
-    ML["마이크로프로세서실험<br/>IRQ·타이머·PWM·ADC·UART"] --> WL["주차별 레지스터 과제<br/>TCU·엘리베이터 FSM"] --> WLV["보드 제출·채점<br/>FSM host test"]
-    ML --> PQ["PYNQ 실행 구조 통합<br/>MMIO PWM·ADC 피드백"] --> PQV["실차 주행 3위"]
-    CA["컴퓨터구조<br/>파이프라인 hazard"] --> RV["GCD 명령어 재배치"] --> RVV["Ripes 121→115 cycles"]
+    VN["차량용네트워크"] --> CF["CAN-FD 3-node 측정"] --> CFV["PCAN 실측<br/>논문 제출"]
+    ML["마이크로프로세서실험"] --> WL["레지스터 과제<br/>TCU·엘리베이터 FSM"] --> WLV["보드 채점<br/>host test"]
+    ML --> PQ["PYNQ MMIO·PWM 통합"] --> PQV["실차 주행 3위"]
+    CA["컴퓨터구조"] --> RV["GCD 명령어 재배치"] --> RVV["Ripes 121→115"]
 ```
 
 외부 실습 교육(Zonal, 차량용 이더넷, AUTOSAR 등)은 이 그림에 넣지 않았습니다. 본인 구현으로 이어졌다는 근거가 남아 있지 않기 때문입니다.
