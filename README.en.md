@@ -44,7 +44,7 @@ How course and workshop learning turned into implementation and verification. Tr
 ```mermaid
 flowchart LR
     ZE["Zonal workshop"] --> HP["HPC parking FSM"] --> HV["Vehicle debugging<br/>new host model"]
-    VN["Automotive Networks"] --> CF["CAN-FD three-node measurement"] --> CFV["PCAN measurements<br/>paper submitted"]
+    VN["Automotive Networks"] --> CF["CAN-FD three-node measurement"] --> CFV["PCAN measurements<br/>presentation accepted"]
     ML["Microprocessor Lab"] --> WL["Register-level labs<br/>TCU / elevator FSMs"] --> WLV["Graded on board<br/>host tests"]
     ML --> PQ["PYNQ MMIO / PWM integration"] --> PQV["3rd in driving run"]
     CA["Computer Architecture"] --> RV["GCD instruction reordering"] --> RVV["Ripes 121 → 115"]
@@ -61,7 +61,7 @@ Per-course detail and what is not published: [Training and coursework](TRAINING.
 
 ## Paper, awards and training
 
-- CAN-FD receive-jitter study: **eight-page full paper submitted** to the 2026 KSAE Autumn Conference (second author; not presented as accepted)
+- CAN-FD receive-jitter study: **eight-page full paper accepted for presentation** at the 2026 KSAE Autumn Conference. Jaeho Shin (first author) is scheduled to present; Yong Hoon Choi is the second author.
 - 2026 AMET Autonomous Driving Hackathon — Hyundai Mobis Excellence Award, 3rd in finals (team)
 - 4th SKKU AI Autonomous Driving Competition — Bronze Award, AI-Chip Division (team)
 - 2025 SKKU Autonomous Driving Hackathon — 2nd place (team)
