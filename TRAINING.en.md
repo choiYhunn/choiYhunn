@@ -14,13 +14,14 @@ University courses and external hands-on training, organized by **what I learned
 
 ```mermaid
 flowchart LR
+    ZE["Zonal workshop"] --> HP["HPC parking FSM"] --> HV["Vehicle debugging<br/>new host model"]
     VN["Automotive Networks"] --> CF["CAN-FD three-node measurement"] --> CFV["PCAN measurements<br/>paper submitted"]
     ML["Microprocessor Lab"] --> WL["Register-level labs<br/>TCU / elevator FSMs"] --> WLV["Graded on board<br/>host tests"]
     ML --> PQ["PYNQ MMIO / PWM integration"] --> PQV["3rd in driving run"]
     CA["Computer Architecture"] --> RV["GCD instruction reordering"] --> RVV["Ripes 121 → 115"]
 ```
 
-External training (Zonal, Automotive Ethernet, AUTOSAR, etc.) is not in this diagram because no evidence ties it to my own implementation.
+The Zonal branch is backed by recovered HPC edits and field logs. Other short courses remain training records where independently publishable personal implementations have not been found. See the [artifact review](docs/technical-notes/artifact-review.en.md).
 
 ## Zonal E/E Architecture workshop
 
@@ -54,11 +55,17 @@ flowchart LR
 
 **Lab progression**: one-ECU bridge (motor stops after one second without commands) → three zones → four zones plus camera streaming → camera only → final four-zone CAN/Ethernet bridge.
 
-**My confirmed work**
-- Recorded the run procedure for the four zone controllers: installing `python3-can`, `sudo python3 zcu.py --zone <n>`, and the Wayland display settings for the camera labs.
-- Added a one-line serial print of the ultrasonic distance to the zone 1 ECU in lab 5 (7 July). Compared with the distributed files, this is the only source change that survives. The final distributed version from the same period treats "no echo (4000)" as out of range rather than a sensor fault.
+**My HPC application work, recovered from the July 8 session**
 
-**Not confirmed**: whether the autonomous-parking task was completed, any latency or reliability measurement, stop-on-command-loss in the final four-zone build (only lab 3 has the one-second timeout), the HPC-side application, and the actual wiring. Debugging recollections such as steering inversion or motor polarity have no source evidence and are not listed.
+- Specified the sequence: right-side detection → forward 1 s → full-left forward 2.5 s → full-right reverse 3 s → reverse until Zone 4 distance <20 cm.
+- Deployed and ran Python on the HPC; revised detection/state logic and diagnostic logging with AI assistance. Directed steering-sign inversion after observing the vehicle and compared Zone 2/3 firmware when Zone 3 moved forward under a reverse request.
+- Recovered the local incomplete `parking.py` outside the workshop tree, plus versions 2–8 by replaying historical file creation and successful edits. These reconstructed historical files are not redistributed.
+
+The earlier “one-line debug change only” description applied to the inspected ECU distribution tree and missed the HPC application. It did not describe my full role. The independent [controller project](https://github.com/choiYhunn/zonal-autoparking-controller) now separates [architecture](https://github.com/choiYhunn/zonal-autoparking-controller/blob/main/docs/architecture.md), [FSM](https://github.com/choiYhunn/zonal-autoparking-controller/blob/main/docs/parking-state-machine.md), [debugging](https://github.com/choiYhunn/zonal-autoparking-controller/blob/main/docs/debugging.md) and [provenance](https://github.com/choiYhunn/zonal-autoparking-controller/blob/main/docs/provenance.md).
+
+**Hardware result:** logs contain four-zone sensor reception, entry into the earlier FSM's reverse-to-wall state and timeout with a stop request. User observations document reversed steering and Zone 3 motion mismatch. The final v8 inversion edit is recoverable, but final parking success and post-fix wheel behavior remain unverified. Socket-send success is not actuator acknowledgement.
+
+**Public implementation:** a new portable Python FSM and 26 host tests. The supplied ZCU/ECU baseline and historical skeleton remain private; new sensor-freshness/scan-timeout guards are host-model additions. Final ECU command-loss stopping, network latency and parking accuracy were not measured.
 
 ## External hands-on training
 
@@ -68,7 +75,7 @@ flowchart LR
 | Embedded SW Platform (AUTOSAR) | Dec 2025 · attended | Classic AUTOSAR layers (SWC, RTE, BSW, MCAL), ECU configuration in EB tresos | EB tresos | None — no configuration output survives. This does not mean I implemented an AUTOSAR ECU |
 | Automotive Embedded Systems | 26 Jan – 7 Feb 2026 · attended | Register/HAL, interrupts, FND, DC motor | Renesas RA6M3, e² studio/FSP | None — the local lab source is identical to the distributed copy. My own RA6M3 code is in the [Microprocessor Lab](https://github.com/choiYhunn/ra6m3-microprocessor-lab) |
 | Mobility ROS 2 Fundamentals | 5–6 Feb 2026 · attended | ROS 2 nodes and topics, camera/sensor packages, introductory YOLO | ROS 2 | None |
-| H-Mobility Class (Hyundai NGV, online) | 20 Apr – 26 Jun 2026 · **completed** | Autonomous driving — communication and networks, 18 h: CAN/CAN-FD/CAN-XL, LIN, Automotive Ethernet and TSN, gateway and AUTOSAR communication, UDS/XCP, V2X, UWB · Car Inside Out D, 14 h: vehicle structure | — | Basic-track completion (not the advanced programme); assignments were written scenario answers |
+| H-Mobility Class (Hyundai NGV, online) | 20 Apr – 26 Jun 2026 · **completed** | Autonomous driving — communication and networks, 18 h: CAN/CAN-FD/CAN-XL, LIN, Automotive Ethernet and TSN, gateway and AUTOSAR communication, UDS/XCP, V2X, UWB · Car Inside Out D, 14 h: vehicle structure | — | Both basic tracks completed (not the advanced programme); private study notes remain. Located assignment text files contain prompts only; submitted answers were not recovered |
 
 ## University courses
 
@@ -76,8 +83,8 @@ flowchart LR
 |---|---|---|
 | Microprocessor Lab (RA6M3) | Weekly assignments at register level ([diffs against the skeleton](https://github.com/choiYhunn/ra6m3-microprocessor-lab/tree/main/weekly_labs)); TCU and elevator FSMs | Graded on the board; host tests for the FSMs |
 | Computer Architecture | GCD-loop hazard analysis and reordering on a five-stage pipeline without forwarding ([repository](https://github.com/choiYhunn/riscv-pipeline-hazard-study)) | Ripes simulation, 121 → 115 cycles |
-| Automotive Networks (graduate-numbered) | Report "What is Ringing? — in the context of CAN-FD": impedance discontinuities and reflections, stubs, termination, sample point, TDC/SSP, SIC transceivers | Literature analysis, not measurement or simulation (report not published; it contains personal data) |
-| Smart Car Engineering | Paper assignment "Trends in AI Perception and Real-Time Control Architectures for Autonomous Driving": sensor fusion, AI accelerators and memory bottlenecks, in-vehicle networks | Literature analysis (not published) |
+| Automotive Networks (graduate-numbered) | Report "What is Ringing? — in the context of CAN-FD": impedance discontinuities and reflections, stubs, termination, sample point, TDC/SSP, SIC transceivers | Literature analysis; [revised note / PDF](docs/technical-notes/can-fd-ringing-sic.en.md), with technical corrections and identifiers removed |
+| Smart Car Engineering | Paper assignment "Trends in AI Perception and Real-Time Control Architectures for Autonomous Driving": sensor fusion, AI accelerators and memory bottlenecks, in-vehicle networks | Literature analysis; [rewritten note / PDF](docs/technical-notes/perception-memory-control.en.md), with new diagrams and no third-party figures |
 | Control Engineering, Electronic Circuits I, Signals and Systems | Coursework | No personal artifact to publish |
 
 **In progress**: Semiconductor Device, Circuit Design and Systems convergence track (micro-degree), planned through 2027-2; not completed.
